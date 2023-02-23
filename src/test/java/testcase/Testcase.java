@@ -23,6 +23,7 @@ public class Testcase extends BaseTest {
     @Test
     public void TC_01(){
         System.out.println("test");
+
     }
 
     @AfterClass
