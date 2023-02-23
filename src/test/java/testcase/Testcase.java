@@ -22,7 +22,7 @@ public class Testcase extends BaseTest {
 
     @Test
     public void TC_01(){
-        System.out.println("test case 123");
+        System.out.println("test case 123 ");
 
     }
 
