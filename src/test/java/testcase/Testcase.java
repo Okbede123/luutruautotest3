@@ -33,7 +33,7 @@ public class Testcase extends BaseTest {
         ExtentManager.startTest(method.getName(),"TC_01");
         ExtentManager.getTest().log(Status.INFO,"check login facebook");
         checkPointPageObject = loginPageObject.inPutUserAndPassAndLogin("0563886668","okbedenb77");
-        checkPointPageObject.inputPassAndSend("954588");
+        checkPointPageObject.inputPassAndSend("460689");
         homeDashBoardPageObject = checkPointPageObject.chooseSaveBrowserOrNot("Lưu trình duyệt");
         profilePageObject = homeDashBoardPageObject.goToYourProfile();
 

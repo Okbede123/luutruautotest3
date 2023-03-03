@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class ProfilePageObject extends BasePage {
+    Map<String,Integer> stringIntegerMap = new TreeMap<>();
 
     public ProfilePageObject(WebDriver driver) {
         super(driver);
@@ -24,8 +25,6 @@ public class ProfilePageObject extends BasePage {
 
 
     public void getListFriend(){
-
-        Map<String,Integer> stringIntegerMap = new TreeMap<>();
         List<WebElement>getListFriend = getListElement(ProfilePageUI.FRIEND);
         if(getListFriend.size() < 30){
             ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",getListFriend.get(getListFriend.size()-1));
@@ -35,14 +34,13 @@ public class ProfilePageObject extends BasePage {
             sleepInTime(1);
             getListFriend();
         }
-
-        for (String friend:stringIntegerMap.keySet()) {
-            if(stringIntegerMap.keySet().size() <= 30){
+        else {
+            for (String friend:stringIntegerMap.keySet()) {
                 System.out.println(friend);
-                break;
             }
-
         }
+
+
     }
 
 
