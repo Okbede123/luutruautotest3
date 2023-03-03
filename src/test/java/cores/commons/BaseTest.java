@@ -5,16 +5,32 @@ import cores.commons.factoryEnvironment.GridFactory;
 import cores.commons.factoryEnvironment.LocalFactory;
 import cores.commons.factorybrowser.ChromeDriverManager;
 import cores.commons.factorybrowser.FirefoxDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     WebDriver driver;
     String env;
 
     public WebDriver getDriver(){
+        return driver;
+    }
+
+
+    public WebDriver openProfileBrowser(String url,String pathProfile){
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--user-data-dir=C:\\Users\\duc.vm4\\AppData\\Local\\Google\\Chrome\\User Data\\");
+        options.addArguments("--profile-directory=Profile 2");
+        options.addArguments("--start-maximized");
+        driver = new ChromeDriver(options);
+        driver.get(url);
         return driver;
     }
 
@@ -34,6 +50,7 @@ public class BaseTest {
                 break;
             }
         }
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get(url);
         this.env = env;

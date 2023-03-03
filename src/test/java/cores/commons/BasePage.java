@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 public class BasePage {
-    WebDriver driver;
+    public WebDriver driver;
 
     public BasePage(WebDriver driver){
         this.driver = driver;
@@ -56,7 +56,7 @@ public class BasePage {
         }else if(locator.startsWith("CSS=")||locator.startsWith("Css=")|| locator.startsWith("css=")){
             getBy = By.cssSelector(locator.substring(4));
         }else if(locator.startsWith("ID=")||locator.startsWith("Id=")|| locator.startsWith("id=")){
-            getBy = By.cssSelector(locator.substring(3));
+            getBy = By.id(locator.substring(3));
         }else {
             throw new RuntimeException("Locator not valid");
         }
@@ -99,9 +99,14 @@ public class BasePage {
         return check;
     }
 
-    public void clickByJs(String locator,String values){
+    public void clickByJs(String locator,String... values){
         waitElementClick(locator,values);
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();",getElement(locator,values));
+    }
+
+    public void scrollByJs(String locator,String...values){
+        waitElementClick(locator,values);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",getElement(locator,values));
     }
 
     public void removeAttribute(String locator,String attribute,String...values){

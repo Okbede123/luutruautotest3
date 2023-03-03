@@ -152,7 +152,7 @@
                 <configuration>
                     <!-- Run TestNG xml file -->
                     <suiteXmlFiles>
-                        <file>src\test\java\resource\demogrid\${environment}.xml</file>
+                        <file>src\test\java\resource\${environment}.xml</file>
                     </suiteXmlFiles>
 
                     <!-- Argument -->
