@@ -20,4 +20,8 @@ public class PageGeneralManager {
     public static ProfilePageObject openProfilePage(WebDriver driver){
         return new ProfilePageObject(driver);
     }
+
+    public static ProfilePageObject.NavigationPageObject openNavigationPage(WebDriver driver){
+        return new ProfilePageObject.NavigationPageObject(driver);
+    }
 }

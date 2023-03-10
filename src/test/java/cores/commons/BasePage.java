@@ -1,6 +1,7 @@
 package cores.commons;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,7 +24,7 @@ public class BasePage {
         getElement(locator,values).click();
     }
 
-    public void sendKeys(String locator,String valueToSend,String...values){
+    public void sendKeys(String locator,CharSequence valueToSend,String...values){
         waitElementVisibility(locator,values);
         getElement(locator,values).sendKeys(valueToSend);
     }
@@ -97,6 +98,10 @@ public class BasePage {
             return false;
         }
         return check;
+    }
+
+    public void clickRightMouse(String locator,String...values){
+        new Actions(driver).contextClick(getElement(locator,values)).perform();
     }
 
     public void clickByJs(String locator,String... values){
