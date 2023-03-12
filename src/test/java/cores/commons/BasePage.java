@@ -6,10 +6,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class BasePage {
     public WebDriver driver;
+
 
     public BasePage(WebDriver driver){
         this.driver = driver;
@@ -22,6 +25,10 @@ public class BasePage {
     public void clickToElements(String locator,String...values){
         waitElementClick(locator,values);
         getElement(locator,values).click();
+    }
+
+    public void backPage(){
+        driver.navigate().back();
     }
 
     public void sendKeys(String locator,CharSequence valueToSend,String...values){
@@ -45,6 +52,7 @@ public class BasePage {
     public List<WebElement> getListElement(String locator,String...values){
         return driver.findElements(getByLocator(castParameter(locator,values)));
     }
+
 
     public By getByLocator(String locator){
         By getBy;
@@ -79,11 +87,12 @@ public class BasePage {
         refreshPage();
     }
 
-    public boolean isElementDisplay(String locator,String values){
+    public boolean isElementDisplay(String locator,String... values){
         return getElement(locator,values).isDisplayed();
     }
 
-    public boolean isElementNotDisplay(String locator,String values){
+    public boolean isElementNotDisplay(String locator,String... values){
+        setImplicitlyWait(4);
         boolean check;
         if (getListElement(locator,values).size() == 0){
             System.out.println("element not in dom");
@@ -97,6 +106,7 @@ public class BasePage {
         }else {
             return false;
         }
+        setImplicitlyWait(30);
         return check;
     }
 
@@ -105,12 +115,20 @@ public class BasePage {
     }
 
     public void clickByJs(String locator,String... values){
-        waitElementClick(locator,values);
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();",getElement(locator,values));
     }
 
+    public void clickByJsParaWebElement(WebElement element){
+        waitElementVisibilityParameterWebElement(element);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click();",element);
+    }
+
+    public void scrollByJsParameterWebElement(WebElement element){
+        waitElementVisibilityParameterWebElement(element);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",element);
+    }
+
     public void scrollByJs(String locator,String...values){
-        waitElementClick(locator,values);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",getElement(locator,values));
     }
 
@@ -124,6 +142,10 @@ public class BasePage {
 
     public void waitElementVisibility(String locator,String...values){
         new WebDriverWait(driver,5).until(ExpectedConditions.visibilityOfElementLocated(getByLocator(castParameter(locator,values))));
+    }
+
+    public void waitElementVisibilityParameterWebElement(WebElement element){
+        new WebDriverWait(driver,5).until(ExpectedConditions.visibilityOf(element));
     }
 
     public void waitElementInvisibility(String locator,String...values){
@@ -173,6 +195,16 @@ public class BasePage {
                 }
             }
         }
+    }
+
+    public int getRandom(int lessThan){
+        Random random = new Random();
+        return  random.nextInt(lessThan);
+    }
+
+
+    public void setImplicitlyWait(int time){
+        driver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
     }
 
 }

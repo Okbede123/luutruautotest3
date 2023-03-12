@@ -23,7 +23,7 @@ public class LoginFirst extends BaseTest {
         driver = openBrowser(environment,browserName,ipAddress,port,osName,osVersion,url);
         loginPageObject = PageGeneralManager.openLoginPage(driver);
         checkPointPageObject = loginPageObject.inPutUserAndPassAndLogin("0563886668","okbedenb77");
-        checkPointPageObject.inputPassAndSend("884831");
+        checkPointPageObject.inputPassAndSend("010282");
         homeDashBoardPageObject = checkPointPageObject.chooseSaveBrowserOrNot("Lưu trình duyệt");
     }
 }

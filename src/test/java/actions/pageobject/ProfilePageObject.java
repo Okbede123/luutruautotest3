@@ -1,23 +1,116 @@
 package actions.pageobject;
 
+import InterFaceUI.BaseUI;
 import InterFaceUI.ProfilePageUI;
 import cores.commons.BasePage;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 import java.util.*;
 
 public class ProfilePageObject extends BasePage {
     Map<WebElement,Integer> stringIntegerMapFriend = new HashMap<>();
     Map<String,Integer> stringIntegerMap = new TreeMap<>();
-
     List<WebElement> myListFriend = new ArrayList<>();
+
+//    Set<WebElement> listFriendNew = new HashSet<WebElement>(){
+//    };
+
+    Map<WebElement,Object> saveWebElement = new HashMap<>();
+
+    Map<String, WebElement> saveMap = new HashMap<String, WebElement>();
+
+    int countFriendComment = 1;
+    int count = 0;
 
 
     public ProfilePageObject(WebDriver driver) {
         super(driver);
+    }
+
+    public void commentToFirstFriend(int numberFriend,ArrayList<String> listComment,List<String> linkFriendRemove){
+        if(getListElement(ProfilePageUI.FRIEND).size() == countFriendComment){
+            scrollByJsParameterWebElement(getListElement(ProfilePageUI.FRIEND).get(getListElement(ProfilePageUI.FRIEND).size()-1));
+            sleepInTime(3);
+        }
+        while (countFriendComment < numberFriend){
+            WebElement friend = getListElement(ProfilePageUI.FRIEND).get(countFriendComment);
+            System.out.println(getListElement(ProfilePageUI.FRIEND).size() + " size");
+            scrollByJsParameterWebElement(friend);
+            clickByJsParaWebElement(friend);
+            while (countFriendComment <= numberFriend){
+                try {
+                    sleepInTime(2);
+                    int number = getRandom(listComment.size()-1);
+                    sleepInTime(2);
+                    scrollByJs(BaseUI.KEY_TO_PRESS);
+                    clickByJs(BaseUI.KEY_TO_PRESS);
+                    sleepInTime(2);
+                    sendKeys(BaseUI.TEXT_BOX_COMMENT,listComment.get(number));
+                    sendKeys(BaseUI.TEXT_BOX_COMMENTED,Keys.ENTER,listComment.get(number));
+                    sleepInTime(1);
+                    break;
+                }catch (TimeoutException e){
+
+                }
+            }
+            countFriendComment++;
+            backPage();
+            commentToFirstFriend(numberFriend,listComment,linkFriendRemove);
+        }
+    }
+
+    public void commentToFirstFriendRefactor(int numberFriend,ArrayList<String> listComment,List<String> linkFriendRemove){
+        System.out.println("vong lap ngoai");
+        while (count <= numberFriend){
+            System.out.println("chay vao day coi");
+            for (String friendNotComment:linkFriendRemove) {
+                if(getElement(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment)).getAttribute("href").contains(friendNotComment)){
+                    System.out.println("test contain " + getElement(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment)).getAttribute("href"));
+                    countFriendComment++;
+                    sleepInTime(3);
+                    commentToFirstFriendRefactor(numberFriend,listComment,linkFriendRemove);
+                }
+            }
+            if(count == numberFriend){
+                break;
+            }
+            sleepInTime(2);
+            scrollByJs(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment));
+            sleepInTime(2);
+            System.out.println("click vao "+ getElement(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment)).getText());
+            clickByJs(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment));
+            while (count <= numberFriend){
+                try {
+                    commentToFriend(BaseUI.KEY_TO_PRESS,BaseUI.TEXT_BOX_COMMENT,BaseUI.TEXT_BOX_COMMENTED,listComment);
+                    // dùng vòng lặp tại đoạn này, i sẽ thay vào cái d kia, và convert sang string
+//                    commentToFriend(castParameter(BaseUI.KEY_TO_PRESS,"d"),BaseUI.TEXT_BOX_COMMENT,BaseUI.TEXT_BOX_COMMENTED,listComment);
+                    break;
+                }catch (TimeoutException e){
+
+                }
+            }
+            sleepInTime(1);
+            countFriendComment++;
+            backPage();
+            sleepInTime(3);
+            count++;
+            System.out.println(count);
+            commentToFirstFriendRefactor(numberFriend,listComment,linkFriendRemove);
+
+        }
+    }
+
+
+    public void commentToFriend(String locatorToPress,String textBoxComment,String PressEnter,List<String>listComment){
+        sleepInTime(2);
+        int number = getRandom(listComment.size()-1);
+        sleepInTime(2);
+        scrollByJs(locatorToPress);
+        clickByJs(locatorToPress);
+        sleepInTime(2);
+        sendKeys(textBoxComment,listComment.get(number));
+        sendKeys(PressEnter,Keys.ENTER,listComment.get(number));
+        sleepInTime(1);
     }
 
 
