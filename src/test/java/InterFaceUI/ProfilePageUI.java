@@ -11,6 +11,7 @@ public class ProfilePageUI {
     public static final String LINK_FRIEND = "xpath=(//div[@aria-label = 'Bạn bè']//parent::div//parent::div//parent::div//preceding-sibling::div//a/span[@dir ='auto']//parent::a)[%s]";
 
     public static final String GROUPS_PUBLIC = "xpath=//div[text()='Nhóm Công khai']//parent::div//parent::div//parent::div//parent::span//parent::div//parent::div//a//span";
+    public static final String GROUPS_PUBLIC_COUNT = "xpath=(//div[text()='Nhóm Công khai']//parent::div//parent::div//parent::div//parent::span//parent::div//parent::div//a//span)[%s]";
 
 
 

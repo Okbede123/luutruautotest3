@@ -3,6 +3,7 @@ package actions.pageobject;
 import InterFaceUI.BaseUI;
 import InterFaceUI.ProfilePageUI;
 import cores.commons.BasePage;
+import org.apache.log.output.net.SocketOutputTarget;
 import org.openqa.selenium.*;
 
 import java.util.*;
@@ -12,15 +13,12 @@ public class ProfilePageObject extends BasePage {
     Map<String,Integer> stringIntegerMap = new TreeMap<>();
     List<WebElement> myListFriend = new ArrayList<>();
 
-//    Set<WebElement> listFriendNew = new HashSet<WebElement>(){
-//    };
-
-    Map<WebElement,Object> saveWebElement = new HashMap<>();
-
-    Map<String, WebElement> saveMap = new HashMap<String, WebElement>();
 
     int countFriendComment = 1;
     int count = 0;
+
+    int countGroup = 0;
+    int numberOfGroup = 1;
 
 
     public ProfilePageObject(WebDriver driver) {
@@ -60,12 +58,9 @@ public class ProfilePageObject extends BasePage {
     }
 
     public void commentToFirstFriendRefactor(int numberFriend,ArrayList<String> listComment,List<String> linkFriendRemove, int postToComment){
-        System.out.println("vong lap ngoai");
         while (count <= numberFriend){
-            System.out.println("chay vao day coi");
             for (String friendNotComment:linkFriendRemove) {
                 if(getElement(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment)).getAttribute("href").contains(friendNotComment)){
-                    System.out.println("test contain " + getElement(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment)).getAttribute("href"));
                     countFriendComment++;
                     sleepInTime(3);
                     commentToFirstFriendRefactor(numberFriend,listComment,linkFriendRemove,postToComment);
@@ -77,7 +72,6 @@ public class ProfilePageObject extends BasePage {
             sleepInTime(2);
             scrollByJs(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment));
             sleepInTime(2);
-            System.out.println("click vao "+ getElement(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment)).getText());
             clickByJs(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment));
             while (count <= numberFriend){
                     commentToFriend(BaseUI.KEY_TO_PRESS,BaseUI.TEXT_BOX_COMMENT,BaseUI.TEXT_BOX_COMMENTED,listComment,postToComment);
@@ -97,7 +91,6 @@ public class ProfilePageObject extends BasePage {
 
     public void commentToFriend(String locatorToPress,String textBoxComment,String PressEnter,List<String>listComment,int postToComment){
         for (int i = 1; i <= postToComment ; i++) {
-            System.out.println(i + "dang bang");
             sleepInTime(2);
             int number = getRandom(listComment.size()-1);
             sleepInTime(2);
@@ -105,10 +98,8 @@ public class ProfilePageObject extends BasePage {
             clickByJs(locatorToPress,String.valueOf(i));
             sleepInTime(2);
             sendKeys(textBoxComment,listComment.get(number),String.valueOf(i));
-            System.out.println(listComment.get(number) + " tren " + i);
             sleepInTime(2);
             sendKeys(PressEnter,Keys.ENTER,listComment.get(number),"1");
-            System.out.println(listComment.get(number) + " duoi "+ i);
             sleepInTime(1);
         }
     }
@@ -160,6 +151,30 @@ public class ProfilePageObject extends BasePage {
     }
 
 
+    public void postInGroup(int numberGroup,List<String> linkContain){
+        while (countGroup<=numberGroup){
+            sleepInTime(3);
+            System.out.println("so lan thanh cong "+ countGroup);
+            for (String link:linkContain) {
+                System.out.println("test vao vong lap for");
+                if(getElement(ProfilePageUI.GROUPS_PUBLIC_COUNT,String.valueOf(numberOfGroup)).getText().equalsIgnoreCase(link)){
+                    clickByJs(ProfilePageUI.GROUPS_PUBLIC_COUNT,String.valueOf(numberOfGroup));
+                    sleepInTime(3);
+                    System.out.println("xu ly comment hoac dang bai trong nay");
+                    countGroup++;
+                    backPage();
+                    break;
+                }
+            }
+            System.out.println("test vao day gia tri ten cua group "+ getElement(ProfilePageUI.GROUPS_PUBLIC_COUNT,String.valueOf(numberOfGroup)).getText() + " gia tri count la "+ numberOfGroup);
+            sleepInTime(2);
+            numberOfGroup++;
+            sleepInTime(2);
+            scrollByJs(ProfilePageUI.GROUPS_PUBLIC_COUNT,String.valueOf(numberOfGroup));
+        }
+    }
+
+
     public void getListGroup(int numberGroup){
         if(stringIntegerMap.keySet().size() <= numberGroup){
             List<WebElement>getListFriend = getListElement(ProfilePageUI.GROUPS_PUBLIC);
@@ -207,6 +222,7 @@ public class ProfilePageObject extends BasePage {
         public void clickToMoreOptions(String chose){
             scrollByJs(ProfilePageUI.NavigationPageUI.NAVIGATION_MORE_OPTIONS);
             clickToElements(ProfilePageUI.NavigationPageUI.NAVIGATION_MORE_OPTIONS);
+            scrollByJs(ProfilePageUI.NavigationPageUI.MORE_OPTIONS_CHOOSE,chose);
             switch (chose){
                 case "Check in":{
                     clickToElements(ProfilePageUI.NavigationPageUI.MORE_OPTIONS_CHOOSE,chose);

@@ -31,7 +31,7 @@ public class AutoCommentInListFriend extends BaseTest {
         driver = openBrowser(environment,browserName,ipAddress,port,osName,osVersion,url);
         loginPageObject = PageGeneralManager.openLoginPage(driver);
         checkPointPageObject = loginPageObject.inPutUserAndPassAndLogin("0563886668","okbedenb77");
-        checkPointPageObject.inputPassAndSend("671291");
+        checkPointPageObject.inputPassAndSend("081962");
         homeDashBoardPageObject = checkPointPageObject.chooseSaveBrowserOrNot("Lưu trình duyệt");
         homeDashBoardPageObject = PageGeneralManager.openHomeDashBoard(driver);
         profilePageObject = homeDashBoardPageObject.goToYourProfile();
