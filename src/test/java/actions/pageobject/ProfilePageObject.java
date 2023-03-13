@@ -59,7 +59,7 @@ public class ProfilePageObject extends BasePage {
         }
     }
 
-    public void commentToFirstFriendRefactor(int numberFriend,ArrayList<String> listComment,List<String> linkFriendRemove){
+    public void commentToFirstFriendRefactor(int numberFriend,ArrayList<String> listComment,List<String> linkFriendRemove, int postToComment){
         System.out.println("vong lap ngoai");
         while (count <= numberFriend){
             System.out.println("chay vao day coi");
@@ -68,7 +68,7 @@ public class ProfilePageObject extends BasePage {
                     System.out.println("test contain " + getElement(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment)).getAttribute("href"));
                     countFriendComment++;
                     sleepInTime(3);
-                    commentToFirstFriendRefactor(numberFriend,listComment,linkFriendRemove);
+                    commentToFirstFriendRefactor(numberFriend,listComment,linkFriendRemove,postToComment);
                 }
             }
             if(count == numberFriend){
@@ -80,14 +80,8 @@ public class ProfilePageObject extends BasePage {
             System.out.println("click vao "+ getElement(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment)).getText());
             clickByJs(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment));
             while (count <= numberFriend){
-                try {
-                    commentToFriend(BaseUI.KEY_TO_PRESS,BaseUI.TEXT_BOX_COMMENT,BaseUI.TEXT_BOX_COMMENTED,listComment);
-                    // dùng vòng lặp tại đoạn này, i sẽ thay vào cái d kia, và convert sang string
-//                    commentToFriend(castParameter(BaseUI.KEY_TO_PRESS,"d"),BaseUI.TEXT_BOX_COMMENT,BaseUI.TEXT_BOX_COMMENTED,listComment);
+                    commentToFriend(BaseUI.KEY_TO_PRESS,BaseUI.TEXT_BOX_COMMENT,BaseUI.TEXT_BOX_COMMENTED,listComment,postToComment);
                     break;
-                }catch (TimeoutException e){
-
-                }
             }
             sleepInTime(1);
             countFriendComment++;
@@ -95,22 +89,28 @@ public class ProfilePageObject extends BasePage {
             sleepInTime(3);
             count++;
             System.out.println(count);
-            commentToFirstFriendRefactor(numberFriend,listComment,linkFriendRemove);
+            commentToFirstFriendRefactor(numberFriend,listComment,linkFriendRemove,postToComment);
 
         }
     }
 
 
-    public void commentToFriend(String locatorToPress,String textBoxComment,String PressEnter,List<String>listComment){
-        sleepInTime(2);
-        int number = getRandom(listComment.size()-1);
-        sleepInTime(2);
-        scrollByJs(locatorToPress);
-        clickByJs(locatorToPress);
-        sleepInTime(2);
-        sendKeys(textBoxComment,listComment.get(number));
-        sendKeys(PressEnter,Keys.ENTER,listComment.get(number));
-        sleepInTime(1);
+    public void commentToFriend(String locatorToPress,String textBoxComment,String PressEnter,List<String>listComment,int postToComment){
+        for (int i = 1; i <= postToComment ; i++) {
+            System.out.println(i + "dang bang");
+            sleepInTime(2);
+            int number = getRandom(listComment.size()-1);
+            sleepInTime(2);
+            scrollByJs(locatorToPress,String.valueOf(i));
+            clickByJs(locatorToPress,String.valueOf(i));
+            sleepInTime(2);
+            sendKeys(textBoxComment,listComment.get(number),String.valueOf(i));
+            System.out.println(listComment.get(number) + " tren " + i);
+            sleepInTime(2);
+            sendKeys(PressEnter,Keys.ENTER,listComment.get(number),"1");
+            System.out.println(listComment.get(number) + " duoi "+ i);
+            sleepInTime(1);
+        }
     }
 
 

@@ -114,6 +114,11 @@ public class BasePage {
         new Actions(driver).contextClick(getElement(locator,values)).perform();
     }
 
+    public void dragAndDrop(String locatorFrom,String locatorTo,String...values){
+        new Actions(driver).dragAndDrop(getElement(locatorFrom,values),getElement(locatorTo,values)).perform();
+    }
+
+
     public void clickByJs(String locator,String... values){
         ((JavascriptExecutor)driver).executeScript("arguments[0].click();",getElement(locator,values));
     }

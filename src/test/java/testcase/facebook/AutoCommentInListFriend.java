@@ -1,4 +1,4 @@
-package testcase;
+package testcase.facebook;
 
 import actions.pageobject.*;
 import com.aventstack.extentreports.Status;
@@ -31,7 +31,7 @@ public class AutoCommentInListFriend extends BaseTest {
         driver = openBrowser(environment,browserName,ipAddress,port,osName,osVersion,url);
         loginPageObject = PageGeneralManager.openLoginPage(driver);
         checkPointPageObject = loginPageObject.inPutUserAndPassAndLogin("0563886668","okbedenb77");
-        checkPointPageObject.inputPassAndSend("375538");
+        checkPointPageObject.inputPassAndSend("671291");
         homeDashBoardPageObject = checkPointPageObject.chooseSaveBrowserOrNot("Lưu trình duyệt");
         homeDashBoardPageObject = PageGeneralManager.openHomeDashBoard(driver);
         profilePageObject = homeDashBoardPageObject.goToYourProfile();
@@ -42,7 +42,7 @@ public class AutoCommentInListFriend extends BaseTest {
         ExtentManager.startTest(method.getName(),"TC_01_CommentToFirstFriend");
         ExtentManager.getTest().log(Status.INFO,"check comment");
         profilePageObject.goToNavigationPage().clickToFriend();
-        profilePageObject.commentToFirstFriendRefactor(10,listComment(),listFriendRemove());
+        profilePageObject.commentToFirstFriendRefactor(10,listComment(),listFriendRemove(),2);
     }
 
 

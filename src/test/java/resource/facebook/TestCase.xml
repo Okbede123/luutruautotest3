@@ -15,7 +15,7 @@
         <parameter name="port" value="5555" />
         <parameter name="ipAddress" value="192.168.1.8" />
         <classes>
-            <class name="testcase.Testcase" />
+            <class name="testcase.facebook.Testcase" />
         </classes>
     </test>
 

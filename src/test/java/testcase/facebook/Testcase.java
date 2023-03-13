@@ -1,19 +1,13 @@
-package testcase;
+package testcase.facebook;
 
 import actions.pageobject.*;
 import com.aventstack.extentreports.Status;
 import cores.commons.BaseTest;
 import cores.commons.reportconfig.ExtentManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import org.testng.annotations.BeforeClass;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
 public class Testcase extends BaseTest {
 

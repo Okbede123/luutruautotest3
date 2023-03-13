@@ -1,4 +1,4 @@
-package testcase;
+package testcase.facebook;
 
 import actions.pageobject.*;
 import cores.commons.BasePage;
