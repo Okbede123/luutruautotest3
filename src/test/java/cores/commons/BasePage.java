@@ -129,7 +129,6 @@ public class BasePage {
     }
 
     public void scrollByJsParameterWebElement(WebElement element){
-        waitElementVisibilityParameterWebElement(element);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);",element);
     }
 

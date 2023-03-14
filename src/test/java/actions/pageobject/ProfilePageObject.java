@@ -12,6 +12,8 @@ public class ProfilePageObject extends BasePage {
     Map<String,Integer> stringIntegerMap = new TreeMap<>();
     List<WebElement> myListFriend = new ArrayList<>();
 
+    List<WebElement> myListFriendTest = new ArrayList<>();
+
 
     int countFriendComment = 1;
     int count = 0;
@@ -90,12 +92,43 @@ public class ProfilePageObject extends BasePage {
 
     public void commentFriendTest(int numberFriend, ArrayList<String> listComment, List<String> linkFriendRemove){
         while (count< numberFriend){
-            WebElement element = getListElement(ProfilePageUI.FRIEND).get(countGroup);
+            System.out.println("vao vong lap 1");
+            System.out.println(getListElement(ProfilePageUI.FRIEND).size() + " size");
+            if(countGroup >= getListElement(ProfilePageUI.FRIEND).size()-1){
+                System.out.println("vao if");
+                scrollByJsParameterWebElement(getListElement(ProfilePageUI.FRIEND).get(getListElement(ProfilePageUI.FRIEND).size()-1));
+                sleepInTime(3);
+            }
+            myListFriendTest = getListElement(ProfilePageUI.FRIEND);
+            WebElement element = myListFriendTest.get(countGroup);
+            for (String friendRemove:linkFriendRemove) {
+                System.out.println("vao vong lap check list friend remove");
+                if(element.getAttribute("href").equals(friendRemove)){
+                    System.out.println(element.getAttribute("href") +" nam trong danh sach den");
+                    countGroup++;
+                    element = myListFriendTest.get(countGroup);
+                    commentFriendTest(numberFriend,listComment,linkFriendRemove);
+                }
+            }
+            System.out.println("scroll vao va comment");
             scrollByJsParameterWebElement(element);
             clickByJsParaWebElement(element);
-            System.out.println("comment ben trong nay");
+            int number = getRandom(listComment.size()-1);
+            sleepInTime(2);
+            refreshPage();
+            scrollByJs(BaseUI.KEY_TO_PRESS_NOT_DYNAMIC);
+            sleepInTime(2);
+            clickByJs(BaseUI.KEY_TO_PRESS_NOT_DYNAMIC);
+            sendKeys(BaseUI.TEXT_BOX_COMMENT_NOT_DYNAMIC,listComment.get(number));
+            sendKeys(BaseUI.TEXT_BOX_COMMENTED_NOT_DYNAMIC,Keys.ENTER,listComment.get(number));
+            sleepInTime(2);
+            System.out.println("quay ve");
             backPage();
+            sleepInTime(3);
             countGroup++;
+            count++;
+            System.out.println(count + " chay den");
+            System.out.println("ket thuc 1 vong while");
         }
     }
 

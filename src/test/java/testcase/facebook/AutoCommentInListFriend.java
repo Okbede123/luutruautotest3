@@ -28,7 +28,7 @@ public class AutoCommentInListFriend extends BaseTest {
         driver = openBrowser(environment,browserName,ipAddress,port,osName,osVersion,url);
         loginPageObject = PageGeneralManager.openLoginPage(driver);
         checkPointPageObject = loginPageObject.inPutUserAndPassAndLogin("0563886668","okbedenb77");
-        checkPointPageObject.inputPassAndSend("081962");
+        checkPointPageObject.inputPassAndSend("872764");
         homeDashBoardPageObject = checkPointPageObject.chooseSaveBrowserOrNot("Lưu trình duyệt");
         homeDashBoardPageObject = PageGeneralManager.openHomeDashBoard(driver);
         profilePageObject = homeDashBoardPageObject.goToYourProfile();
@@ -45,10 +45,8 @@ public class AutoCommentInListFriend extends BaseTest {
 
     public ArrayList<String> listComment(){
         ArrayList<String>list = new ArrayList<>();
-        list.add("Comment này được tự động từ tool của Đức Thần Tài");
-        list.add("Tool tự động của Đức Thần Tài đang hoạt động");
-        list.add("Tự động comment");
-        list.add("Đức Thần Tài đang comment tự động");
+        list.add("tương tác tốt");
+        list.add("tương tác tốt cùng Đức Thần Tài");
         return list;
     }
 
