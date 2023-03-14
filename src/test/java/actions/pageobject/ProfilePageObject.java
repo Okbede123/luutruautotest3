@@ -151,7 +151,7 @@ public class ProfilePageObject extends BasePage {
     }
 
 
-    public void postInGroup(int numberGroup,List<String> linkContain){
+    public void postInGroup(int numberGroup,List<String> linkContain,List<String>randomPost){
         while (countGroup<=numberGroup){
             sleepInTime(3);
             System.out.println("so lan thanh cong "+ countGroup);
@@ -160,7 +160,9 @@ public class ProfilePageObject extends BasePage {
                 if(getElement(ProfilePageUI.GROUPS_PUBLIC_COUNT,String.valueOf(numberOfGroup)).getText().equalsIgnoreCase(link)){
                     clickByJs(ProfilePageUI.GROUPS_PUBLIC_COUNT,String.valueOf(numberOfGroup));
                     sleepInTime(3);
-                    System.out.println("xu ly comment hoac dang bai trong nay");
+                        int random = getRandom(randomPost.size()-1);
+                        clickToElements(BaseUI.POST_GROUP);
+                        sendKeys(BaseUI.WRITE_POST,randomPost.get(random));
                     countGroup++;
                     backPage();
                     break;

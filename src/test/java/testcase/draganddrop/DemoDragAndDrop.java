@@ -53,7 +53,6 @@ public class DemoDragAndDrop extends BaseTest {
     @Test
     public void TC_03_moveToElement(){
         sleepInTime(3);
-        System.out.println("chay");
         WebElement drag = driver.findElement(By.xpath("//div[@Id ='draggable']"));
         WebElement drop = driver.findElement(By.xpath("//div[@Id ='droptarget']"));
         actions.moveToElement(drag).clickAndHold().pause(Duration.ofSeconds(6)).moveToElement(drop).release().perform();

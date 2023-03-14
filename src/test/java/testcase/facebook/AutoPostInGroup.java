@@ -25,7 +25,7 @@ public class AutoPostInGroup extends BaseTest {
         driver = openBrowser(environment,browserName,ipAddress,port,osName,osVersion,url);
         loginPageObject = PageGeneralManager.openLoginPage(driver);
         checkPointPageObject = loginPageObject.inPutUserAndPassAndLogin("0563886668","okbedenb77");
-        checkPointPageObject.inputPassAndSend("959279");
+        checkPointPageObject.inputPassAndSend("561011");
         homeDashBoardPageObject = checkPointPageObject.chooseSaveBrowserOrNot("Lưu trình duyệt");
         homeDashBoardPageObject = PageGeneralManager.openHomeDashBoard(driver);
         profilePageObject = homeDashBoardPageObject.goToYourProfile();
@@ -34,14 +34,21 @@ public class AutoPostInGroup extends BaseTest {
     @Test
     public void TC_01_PostInGroup(){
         profilePageObject.goToNavigationPage().clickToMoreOptions("Nhóm");
-        profilePageObject.postInGroup(5,nameGroup());
+        profilePageObject.postInGroup(5,nameGroup(),postGroup());
     }
 
 
     public static ArrayList<String> nameGroup(){
         ArrayList<String>list = new ArrayList<>();
         list.add("CHỢ DÂN CƯ QUẬN HAI BÀ TRƯNG - HÀ NỘI");
-//        list.add("https://www.facebook.com/hoang.nhat.353");
+        return list;
+    }
+
+    public static ArrayList<String> postGroup(){
+        ArrayList<String>list = new ArrayList<>();
+        list.add("test");
+        list.add("test2");
+        list.add("test3");
         return list;
     }
 
