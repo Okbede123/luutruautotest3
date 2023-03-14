@@ -3,7 +3,6 @@ package actions.pageobject;
 import InterFaceUI.BaseUI;
 import InterFaceUI.ProfilePageUI;
 import cores.commons.BasePage;
-import org.apache.log.output.net.SocketOutputTarget;
 import org.openqa.selenium.*;
 
 import java.util.*;
@@ -57,13 +56,13 @@ public class ProfilePageObject extends BasePage {
         }
     }
 
-    public void commentToFirstFriendRefactor(int numberFriend,ArrayList<String> listComment,List<String> linkFriendRemove, int postToComment){
+    public void commentToFriendRefactor(int numberFriend, ArrayList<String> listComment, List<String> linkFriendRemove, int postToComment){
         while (count <= numberFriend){
             for (String friendNotComment:linkFriendRemove) {
                 if(getElement(ProfilePageUI.LINK_FRIEND,String.valueOf(countFriendComment)).getAttribute("href").contains(friendNotComment)){
                     countFriendComment++;
                     sleepInTime(3);
-                    commentToFirstFriendRefactor(numberFriend,listComment,linkFriendRemove,postToComment);
+                    commentToFriendRefactor(numberFriend,listComment,linkFriendRemove,postToComment);
                 }
             }
             if(count == numberFriend){
@@ -83,8 +82,20 @@ public class ProfilePageObject extends BasePage {
             sleepInTime(3);
             count++;
             System.out.println(count);
-            commentToFirstFriendRefactor(numberFriend,listComment,linkFriendRemove,postToComment);
+            commentToFriendRefactor(numberFriend,listComment,linkFriendRemove,postToComment);
 
+        }
+    }
+
+
+    public void commentFriendTest(int numberFriend, ArrayList<String> listComment, List<String> linkFriendRemove){
+        while (count< numberFriend){
+            WebElement element = getListElement(ProfilePageUI.FRIEND).get(countGroup);
+            scrollByJsParameterWebElement(element);
+            clickByJsParaWebElement(element);
+            System.out.println("comment ben trong nay");
+            backPage();
+            countGroup++;
         }
     }
 

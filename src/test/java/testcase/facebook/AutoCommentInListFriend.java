@@ -5,15 +5,12 @@ import com.aventstack.extentreports.Status;
 import cores.commons.BaseTest;
 import cores.commons.reportconfig.ExtentManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AutoCommentInListFriend extends BaseTest {
 
@@ -42,7 +39,7 @@ public class AutoCommentInListFriend extends BaseTest {
         ExtentManager.startTest(method.getName(),"TC_01_CommentToFirstFriend");
         ExtentManager.getTest().log(Status.INFO,"check comment");
         profilePageObject.goToNavigationPage().clickToFriend();
-        profilePageObject.commentToFirstFriendRefactor(10,listComment(),listFriendRemove(),2);
+        profilePageObject.commentToFriendRefactor(10,listComment(),listFriendRemove(),2);
     }
 
 
