@@ -26,8 +26,8 @@ public class BaseTest {
     public WebDriver openProfileBrowser(String url,String pathProfile){
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--user-data-dir=C:\\Users\\duc.vm4\\AppData\\Local\\Google\\Chrome\\User Data\\");
-        options.addArguments("--profile-directory=Profile 2");
+        options.addArguments("--user-data-dir=C:\\Users\\Admin\\AppData\\Local\\Google\\Chrome\\User Data\\");
+        options.addArguments("--profile-directory=Profile 3");
         options.addArguments("--start-maximized");
         driver = new ChromeDriver(options);
         driver.get(url);
